@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Feedback List</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    th { background-color: #007BFF; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    h2 { color: #333; }
+  </style>
+</head>
+<body>
+  <h2>📋 Feedback Entries</h2>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Emotion</th>
+      <th>Rating</th>
+      <th>Timestamp</th>
+    </tr>
+    {% for entry in entries %}
+    <tr>
+      <td>{{ entry[0] }}</td>
+      <td>{{ entry[1] }}</td>
+      <td>{{ entry[2] }} ⭐</td>
+      <td>{{ entry[3] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

@@ -72,6 +72,15 @@ def submit():
         return jsonify({'emotion': emotion, 'rating': rating})
     except Exception as e:
         return jsonify({'error': str(e)})
+    
+@app.route('/admin')
+def admin_dashboard():
+    conn = sqlite3.connect("feedback.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, emotion, rating, timestamp FROM feedback ORDER BY timestamp DESC")
+    entries = cursor.fetchall()
+    conn.close()
+    return render_template("admin.html", entries=entries)
 
 if __name__ == '__main__':
     init_db()  # ensure table exists before Flask starts
