@@ -10,6 +10,7 @@ from io import BytesIO
 from PIL import Image
 import pandas as pd
 import os
+from zoneinfo import ZoneInfo
 
 app = Flask(__name__)
 
@@ -55,7 +56,7 @@ def submit():
         prediction = model.predict(img_array)[0]
         emotion = emotion_labels[np.argmax(prediction)]
         rating = emotion_to_star(emotion)
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        timestamp = datetime.now(ZoneInfo("Asia/Kuala_Lumpur")).strftime("%Y-%m-%d %H:%M:%S")
 
         # Save to SQLite
         conn = sqlite3.connect("feedback.db")
