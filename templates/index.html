@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emotion Rating</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <style>
+        body { text-align: center; font-family: Arial; margin-top: 30px; }
+        video, canvas { border: 1px solid #ccc; }
+        button { margin: 10px; padding: 10px 20px; }
+    </style>
+</head>
+<body>
+    <h2>Scan Your Face</h2>
+    <video id="video" width="320" height="240" autoplay></video><br>
+    <button onclick="capture()">Capture & Submit</button>
+    <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+    <p id="result"></p>
+</body>
+</html>
