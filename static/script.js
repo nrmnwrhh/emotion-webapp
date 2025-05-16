@@ -1,15 +1,20 @@
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
-const context = canvas.getContext('2d');
 const result = document.getElementById('result');
+const context = canvas.getContext('2d');
 
 async function startCamera() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        result.innerText = "❌ Your browser does not support webcam access.";
+        return;
+    }
+
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         video.srcObject = stream;
     } catch (err) {
         result.innerText = "❌ Camera access blocked or unavailable: " + err.message;
-        console.error("Camera access error:", err);
+        console.error("Camera error:", err);
     }
 }
 
@@ -31,7 +36,7 @@ function capture() {
         }
     })
     .catch(error => {
-        result.innerText = "❌ Failed to submit image.";
+        result.innerText = "❌ Failed to send image.";
         console.error("Submit error:", error);
     });
 }
