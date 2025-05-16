@@ -55,13 +55,18 @@ def submit():
         prediction = model.predict(img_array)[0]
         emotion = emotion_labels[np.argmax(prediction)]
         rating = emotion_to_star(emotion)
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # Save to DB
+        # Save to SQLite
         conn = sqlite3.connect("feedback.db")
         c = conn.cursor()
         c.execute("INSERT INTO feedback (emotion, rating, timestamp) VALUES (?, ?, ?)",
-                  (emotion, rating, datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                  (emotion, rating, timestamp))
         conn.commit()
+
+        # Auto-export to Excel
+        df = pd.read_sql_query("SELECT * FROM feedback", conn)
+        df.to_excel("feedback_export.xlsx", index=False)
         conn.close()
 
         return jsonify({'emotion': emotion, 'rating': rating})
@@ -69,5 +74,6 @@ def submit():
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
+    init_db()  # ensure table exists before Flask starts
     port = int(os.environ.get('PORT', 5000))  # Render sets PORT env variable
     app.run(host='0.0.0.0', port=port)
