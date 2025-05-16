@@ -1,4 +1,7 @@
-opencv-python
+Flask
 tensorflow
 keras
 numpy
+opencv-python
+pillow
+pandas
