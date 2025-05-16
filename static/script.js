@@ -19,7 +19,10 @@ async function startCamera() {
 }
 
 function capture() {
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    context.save();
+    context.scale(-1, 1);
+    context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+    context.restore();
     const imageData = canvas.toDataURL('image/png');
 
     fetch('/submit', {
