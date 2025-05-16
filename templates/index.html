@@ -3,16 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Emotion Rating</title>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
     <style>
-        body { text-align: center; font-family: Arial; margin-top: 30px; }
+        body { text-align: center; font-family: Arial, sans-serif; margin-top: 30px; }
         video, canvas { border: 1px solid #ccc; }
-        button { margin: 10px; padding: 10px 20px; }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <h2>Scan Your Face</h2>
-    <video id="video" width="320" height="240" autoplay></video><br>
+    <video id="video" width="320" height="240" autoplay playsinline></video><br>
     <button onclick="capture()">Capture & Submit</button>
     <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
     <p id="result"></p>
